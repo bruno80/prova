@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Adicionar Contato</ion-title>
+    <ion-buttons slot="start">
+      <ion-button href="/home">
+        Voltar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Novo Contato
+      </ion-card-title>
+    </ion-card-header>
+    <ion-item>
+      <ion-label>Contato:</ion-label>
+      <ion-input [(ngModel)]="novo_contato.nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>URL:</ion-label>
+      <ion-input [(ngModel)]="novo_contato.url"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>ID:</ion-label>
+      <ion-input [(ngModel)]="novo_contato.id"></ion-input>
+    </ion-item>
+    <ion-button color="dark" expand="block" (click)="add()">OK</ion-button>
+  </ion-card>
+</ion-content>
