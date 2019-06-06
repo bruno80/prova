@@ -7,10 +7,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { ContatoModalPage } from './contato-modal.page';
 
+
 const routes: Routes = [
   {
     path: '',
-    component: ContatoModalPage
+    component: ContatoModalPage,
   }
 ];
 

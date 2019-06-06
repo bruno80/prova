@@ -15,15 +15,20 @@
       <ion-card-title>
         Novo Contato
       </ion-card-title>
+
     </ion-card-header>
     <ion-item>
       <ion-label>Contato:</ion-label>
       <ion-input [(ngModel)]="novo_contato.nome"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label>URL:</ion-label>
-      <ion-input [(ngModel)]="novo_contato.url"></ion-input>
+      <img src="{{novo_contato.url}}" alt="">
     </ion-item>
+    <ion-button expand="block" color="dark" (click)="take_picture()">
+      <ion-icon name="camera">Take</ion-icon>
+    </ion-button>
+
     <ion-item>
       <ion-label>ID:</ion-label>
       <ion-input [(ngModel)]="novo_contato.id"></ion-input>
