@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-contato-detail',
@@ -8,12 +10,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ContatoDetailPage implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
-
   id;
+  contact;
+  
+  constructor(private route: ActivatedRoute,private http:HttpClient) { 
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.http.get('http://5d0ab6c4c5896f0014e86dcb.mockapi.io/contact/' + this.id).subscribe(
+      (data) => {
+        this.contact = data;
+      }
+    )
+  }
+
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
   }
 
 }

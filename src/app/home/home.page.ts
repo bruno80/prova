@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ContatoModalPage } from '../contato-modal/contato-modal.page';
 import { Storage } from '@ionic/storage';
+import { HttpClient } from '@angular/common/http';
+import { LoadingController } from '@ionic/angular';
+
 
 
 @Component({
@@ -11,19 +14,25 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
-  constructor(
-    public modalController: ModalController,
-    private storage: Storage) {
-    this.storage.get(this.CONTATOS_KEY).then((data) => {
-      if (data) {
-        this.contatos = data
-      }
-    })
-  }
-
-  contatos = [];
+  contatos: any;
   CONTATOS_KEY = 'contatos';
 
+  constructor(
+    public modalController: ModalController, private storage: Storage, private http: HttpClient, public loadingController: LoadingController) {
+    this.contatos = []
+
+    this.loadingController.create({
+      message: 'Loading'
+    }).then((loader) => {
+      loader.present();
+      this.http.get('http://5d0ab6c4c5896f0014e86dcb.mockapi.io/contact').subscribe(
+        (data) => {
+          this.contatos = data;
+          loader.dismiss();
+        }
+      )
+    });
+  }
 
   async modal() {
     const modal = await this.modalController.create({
@@ -37,16 +46,32 @@ export class HomePage {
   }
 
   async add(contato) {
-    this.contatos.push(contato);
-    this.storage.set(this.CONTATOS_KEY, this.contatos)
-
-  }
+    this.loadingController.create({
+      message: 'Loading'
+    }).then((loader) => {
+      loader.present();
+    this.http.post('http://5d0ab6c4c5896f0014e86dcb.mockapi.io/contact', contato).subscribe(
+      (data) => {
+        this.contatos.push(data);
+        loader.dismiss();
+      }
+    )
+  });
+}
 
   async delete(contato) {
-    var i = this.contatos.indexOf(contato);
-    this.contatos.splice(i, 1);
-    this.storage.set(this.CONTATOS_KEY, this.contatos)
-  }
-
+    this.loadingController.create({
+      message: 'Loading'
+    }).then((loader) => {
+      loader.present();
+    this.http.delete('http://5d0ab6c4c5896f0014e86dcb.mockapi.io/contact/' + contato.id).subscribe(
+      (data) => {
+        var i = this.contatos.indexOf(contato);
+        this.contatos.splice(i, 1);
+        loader.dismiss();
+      }
+    )
+  });
+}
 
 }

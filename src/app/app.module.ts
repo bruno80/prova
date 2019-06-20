@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ContatoModalPageModule } from './contato-modal/contato-modal.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera/ngx';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { Camera } from '@ionic-native/camera/ngx';
   imports: [BrowserModule, IonicModule.forRoot(),
     ContatoModalPageModule,
     AppRoutingModule,
+    HttpClientModule,
     IonicStorageModule.forRoot()
   ],
   providers: [
